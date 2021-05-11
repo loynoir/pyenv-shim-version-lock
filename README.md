@@ -29,7 +29,7 @@ $ env \
 ```
 
 ```sh
-$ export PYENV_VERSION=2.7.10/envs/
+$ export PYENV_VERSION=2.7.10/envs/some-outdated-cli
 $ some-outdated-clisome-outdated-cli --help
 ```
 Everytime call it, need to somehow setup environment.
