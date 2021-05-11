@@ -1,0 +1,36 @@
+#!/bin/bash
+(
+	set -eo pipefail
+	[ -z "${DEBUG:-}" ] || set -x
+	if [ -v BASH_SOURCE ]; then
+		__filename="${BASH_SOURCE[0]}"
+	else
+		#FIXME: shfmt workaround
+		eval '__filename="${(%):-%x}"'
+	fi
+	__filename="$(realpath -m "${__filename}")"
+	__dirname="$(dirname "${__filename}")"
+	readonly __filename
+	readonly __dirname
+	cd "${__dirname}" || exit 1
+	cd .. || exit 1
+
+	shellcheck \
+		./script/lint \
+		./script/test \
+		./src/index.sh \
+		./test/index.test.sh \
+		./etc/pyenv.d/rehash/envs.bash
+
+	# shellcheck disable=SC1091
+	source src/index.sh
+	: "$(type pin_declaration)"
+
+	echo ">>> Test: bash"
+	bash test/index.test.sh
+	echo ">>> Test: zsh"
+	zsh test/index.test.sh
+
+	echo ">>> ALL TEST PASSED"
+	exit 0
+)

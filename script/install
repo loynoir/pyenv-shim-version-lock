@@ -1,0 +1,26 @@
+#!/bin/bash
+(
+	set -eo pipefail
+	[ -z "${DEBUG:-}" ] || set -x
+	if [ -v BASH_SOURCE ]; then
+		__filename="${BASH_SOURCE[0]}"
+	else
+		#FIXME: shfmt workaround
+		eval '__filename="${(%):-%x}"'
+	fi
+	__filename="$(realpath -m "${__filename}")"
+	__dirname="$(dirname "${__filename}")"
+	readonly __filename
+	readonly __dirname
+	cd "${__dirname}" || exit 1
+	cd .. || exit 1
+
+	if hash pyenv;then
+		__pyenv_root="$(pyenv root)"
+		git clone \
+			. \
+			"${__pyenv_root:?}"/plugins/pyenv-shim-version-lock
+	fi
+
+	exit 0
+)
