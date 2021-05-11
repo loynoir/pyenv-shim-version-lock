@@ -9,6 +9,7 @@ $ git clone \
 ```
 
 # Usage
+Here is an exmaple using with [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv)
 ```sh
 $ env \
     PYENV_SHIM_VERSION_LOCK=y \
