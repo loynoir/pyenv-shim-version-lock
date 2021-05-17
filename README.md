@@ -1,13 +1,6 @@
 # Brief
 A `pyenv` plugin, to make package cli, at runtime, using **SAME** python version when you **install** it. Aka `static shim`.
 
-# Install
-```sh
-$ git clone \
-    https://github.com/loynoir/pyenv-shim-version-lock.git \
-    $(pyenv root)/plugins/pyenv-shim-version-lock
-```
-
 # Pain Point Solved
 ```sh
 $ env \
@@ -20,6 +13,14 @@ $ export PYENV_VERSION=2.7.10/envs/some-outdated-cli
 $ some-outdated-clisome-outdated-cli --help
 ```
 Everytime call it, need to somehow setup environment.
+
+# Install
+Recommend, using with `pyenv-virtualenv`.
+```sh
+$ git clone \
+    https://github.com/loynoir/pyenv-shim-version-lock.git \
+    $(pyenv root)/plugins/pyenv-shim-version-lock
+```
 
 # Usage
 Here is an exmaple using with [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv)
